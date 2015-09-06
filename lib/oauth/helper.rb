@@ -34,8 +34,12 @@ module OAuth
     #
     # See Also: {OAuth core spec version 1.0, section 9.1.1}[http://oauth.net/core/1.0#rfc.section.9.1.1]
     def normalize(params)
+      Rails.logger.info("&&&&&&&&&&&&&&&&&")
+      Rails.logger.info("helper = params = #{params}")
+      Rails.logger.info("&&&&&&&&&&&&&&&&&")
       params.sort.map do |k, values|
         if values.is_a?(Array)
+          Rails.logger.info("&&&&&&&&&&&&&&&&& 1")
           # make sure the array has an element so we don't lose the key
           values << nil if values.empty?
           # multiple values were provided for a single key
@@ -43,8 +47,10 @@ module OAuth
             [escape(k),escape(v)] * "="
           end
         elsif values.is_a?(Hash)
+          Rails.logger.info("&&&&&&&&&&&&&&&&& 2")
           normalize_nested_query(values, k)
         else
+          Rails.logger.info("&&&&&&&&&&&&&&&&& 3")
           [escape(k),escape(values)] * "="
         end
       end * "&"
@@ -56,10 +62,12 @@ module OAuth
     def normalize_nested_query(value, prefix = nil)
       case value
       when Array
+        Rails.logger.info("&&&&&&&&&&&&&&&&& 1.1")
         value.map do |v|
           normalize_nested_query(v, "#{prefix}[]")
         end.flatten.sort
       when Hash
+        Rails.logger.info("&&&&&&&&&&&&&&&&& 1.1")
         value.map do |k, v|
           normalize_nested_query(v, prefix ? "#{prefix}[#{k}]" : k)
         end.flatten.sort
