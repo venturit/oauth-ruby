@@ -111,7 +111,11 @@ module OAuth::RequestProxy
     # See 9.1 in specs
     def signature_base_string
       base = [method, normalized_uri, normalized_parameters]
-      base.map { |v| escape(v) }.join("&")
+      bs = base.map { |v| escape(v) }.join("&")
+      Rails.logger.info("&&&&&&&&&&&&&&&&&")
+      Rails.logger.info("base string #{bs}")
+      Rails.logger.info("&&&&&&&&&&&&&&&&&")
+      bs
     end
 
     # Has this request been signed yet?
