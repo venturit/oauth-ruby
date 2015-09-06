@@ -9,6 +9,7 @@ module OAuth
     #
     # See Also: {OAuth core spec version 1.0, section 5.1}[http://oauth.net/core/1.0#rfc.section.5.1]
     def escape(value)
+      Rails.logger.info("&&&&&&&&&&&&&&&&& helper escaping 0 = #{value.to_s}")
       Rails.logger.info("&&&&&&&&&&&&&&&&& helper escaping 1 = #{URI::escape(value.to_s, OAuth::RESERVED_CHARACTERS)}")
       URI::escape(value.to_s, OAuth::RESERVED_CHARACTERS)
     rescue ArgumentError
