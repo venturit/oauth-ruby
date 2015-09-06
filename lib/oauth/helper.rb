@@ -62,16 +62,17 @@ module OAuth
     def normalize_nested_query(value, prefix = nil)
       case value
       when Array
-        Rails.logger.info("&&&&&&&&&&&&&&&&& 1.1")
+        Rails.logger.info("&&&&&&&&&&&&&&&&& helper 1.1")
         value.map do |v|
           normalize_nested_query(v, "#{prefix}[]")
         end.flatten.sort
       when Hash
-        Rails.logger.info("&&&&&&&&&&&&&&&&& 1.1")
+        Rails.logger.info("&&&&&&&&&&&&&&&&& helper 1.2")
         value.map do |k, v|
           normalize_nested_query(v, prefix ? "#{prefix}[#{k}]" : k)
         end.flatten.sort
       else
+        Rails.logger.info("&&&&&&&&&&&&&&&&& helper 1.3")
         [escape(prefix), escape(value)] * "="
       end
     end
