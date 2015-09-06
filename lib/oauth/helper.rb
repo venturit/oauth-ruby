@@ -12,7 +12,7 @@ module OAuth
       Rails.logger.info("&&&&&&&&&&&&&&&&& helper escaping 1 = #{URI::escape(value.to_s, OAuth::RESERVED_CHARACTERS)}")
       URI::escape(value.to_s, OAuth::RESERVED_CHARACTERS)
     rescue ArgumentError
-      Rails.logger.info("&&&&&&&&&&&&&&&&& helper escaping 1 = #{URI::escape(value.to_s.force_encoding(Encoding::UTF_8), OAuth::RESERVED_CHARACTERS)}")
+      Rails.logger.info("&&&&&&&&&&&&&&&&& helper escaping 2 = #{URI::escape(value.to_s.force_encoding(Encoding::UTF_8), OAuth::RESERVED_CHARACTERS)}")
       URI::escape(value.to_s.force_encoding(Encoding::UTF_8), OAuth::RESERVED_CHARACTERS)
     end
 
